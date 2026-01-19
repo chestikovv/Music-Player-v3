@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com');
+:root { --bg: #121212; --accent: rgb(180, 180, 180); --text: #ffffff; --dim: #a0a0a0; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
+* { box-sizing: border-box; outline: none; }
+
+.app-bg-layer { position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; filter: brightness(0.4); transition: 0.5s; }
+.app-container { display: flex; height: 100vh; position: relative; z-index: 1; }
+.sidebar, .tracks-panel { width: 340px; padding: 30px; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); display: flex; flex-direction: column; }
+.sidebar { border-right: 1px solid rgba(255,255,255,0.05); }
+.tracks-panel { border-left: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.tracks-panel.drag-over { background: rgba(255, 45, 117, 0.1); border-left: 1px solid var(--accent); }
+
+.logo { font-size: 24px; font-weight: 900; margin-bottom: 30px; display: flex; align-items: center; }
+.logo span { color: var(--accent); }
+.logo-img { width: 50px; height: 50px; margin-right: 10px; }
+.logo h1 { font-size: 25px; margin: 0; }
+
+.player-center { flex: 1; display: flex; align-items: center; justify-content: center; }
+.player-ui { width: 100%; max-width: 500px; text-align: center; }
+
+.cover-box { position: relative; width: 350px; height: 350px; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.7); margin: 0 auto 25px; background: #222; }
+#main-cover { width: 100%; height: 100%; object-fit: cover; }
+.cover-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; cursor: pointer; font-weight: bold; }
+.cover-box:hover .cover-overlay { opacity: 1; }
+
+.progress-bar-container { display: flex; align-items: center; gap: 15px; margin: 20px 0; color: var(--dim); font-size: 13px; }
+#progress-slider { flex: 1; accent-color: var(--accent); cursor: pointer; height: 6px; }
+
+.playback-btns { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.btn-play-pause { width: 80px; height: 80px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent); transition: 0.3s; }
+.btn-icon { background: none; border: none; color: var(--dim); cursor: pointer; padding: 8px; transition: 0.2s; display: flex; align-items: center; }
+.btn-icon:hover, .btn-icon.active { color: var(--accent); }
+
+.volume-box { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
+#volume-slider { width: 150px; accent-color: var(--accent); cursor: pointer; }
+
+.item { padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.03); margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.2s; text-align: left; }
+.item:hover { background: rgba(255,255,255,0.08); }
+.item.active { background: var(--accent); font-weight: bold; }
+.track-mini-cover { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.scrollable { flex: 1; overflow-y: auto; padding-right: 5px; }
+.scrollable::-webkit-scrollbar { width: 4px; }
+.scrollable::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+.btn-main { background: var(--accent); color: white; border: 1px solid #333; padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold;  }
+.btn-outline { background: transparent; border: 1px solid #333; color: var(--dim); padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; }
+.btn-add-files { margin-bottom: 11px;}
+.nofull-width { width: 48%; }
+.sidebar-playlist-btn { display: flex; justify-content: space-between; margin-bottom: 10px; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: #1a1a1a; padding: 30px; border-radius: 25px; width: 380px; border: 1px solid rgba(255,255,255,0.1); }
+#edit-input { width: 100%; padding: 10px; background: #222; border: 1px solid #444; color: white; border-radius: 8px; margin-top: 15px; }
+
+.section-header { font-size: 11px; text-transform: uppercase; color: var(--dim); letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
+.search-box input { width: 100%; padding: 12px; border-radius: 10px; background: #222; border: 1px solid #333; color: white; margin-bottom: 15px; }
+
+.setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+#accent-color-input { width: 45px; height: 45px; border: none; background: none; cursor: pointer; padding: 0; margin-left: 20px; }
+.bg-controls { display: flex; gap: 10px; align-items: center; }
+.bg-control-box { width: 45px; height: 45px; background: #2a2a2a; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; background-size: cover; border: 1px solid rgba(255,255,255,0.1); transition: 0.2s; }
+.modal-playlist-btn { padding: 12px; background: #222; border-radius: 10px; margin-bottom: 8px; cursor: pointer; text-align: center; }
+.modal-playlist-btn:hover { background: var(--accent); }
+
+/* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! */
+/* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! */
+/* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! *//* МЕТКА ДЛЯ ОТКАТА! */
